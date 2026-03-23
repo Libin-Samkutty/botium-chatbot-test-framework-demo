@@ -1,5 +1,7 @@
 # Botium Test Framework - Demo
 
+[![CI](https://github.com/Libin-Samkutty/botium-chatbot-test-framework-demo/actions/workflows/botium-tests.yml/badge.svg)](https://github.com/Libin-Samkutty/botium-chatbot-test-framework-demo/actions/workflows/botium-tests.yml)
+
 Demonstrates production-grade Botium-based testing for a healthcare chatbot. Tests conversational flows on Facebook Messenger and WhatsApp across staging and production environments.
 
 **Note**: Credentials, IP addresses, webhook URLs, and organization-specific content replaced with placeholders.
