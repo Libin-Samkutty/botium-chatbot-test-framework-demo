@@ -1,0 +1,32 @@
+{
+  "name": "botium_chatbot_test_demo",
+  "version": "1.0.0",
+  "description": "Demo version of Botium-based chatbot integration test framework",
+  "scripts": {
+    "test": "mocha json",
+    "inbound": "botium-cli inbound-proxy --verbose"
+  },
+  "botium": {
+    "convodirs": [
+      "spec/convo"
+    ],
+    "expandConvos": true,
+    "expandUtterancesToConvos": false
+  },
+  "devDependencies": {
+    "botium-bindings": "latest",
+    "botium-cli": "^1.0.13",
+    "botium-connector-fbwebhook": "0.0.6",
+    "botium-connector-whatsapp": "0.0.3",
+    "jest": "^27.3.0",
+    "mocha": "latest",
+    "mochawesome": "^6.2.2",
+    "mochawesome-report-generator": "^5.2.0",
+    "patch-package": "^8.0.1"
+  },
+  "dependencies": {
+    "botium-core": "^1.13.17",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.0.3"
+  }
+}

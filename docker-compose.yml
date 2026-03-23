@@ -1,0 +1,80 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: botium-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - botium-net
+
+  botium-prod:
+    build:
+      context: .
+      target: production
+    container_name: botium-prod
+    environment:
+      - NODE_ENV=demo-stage-wa
+      - BOT_WEBHOOK_URL=${BOT_WEBHOOK_URL:-https://your-bot-api.example.com/facebook/staging/receive}
+      - WA_WEBHOOK_URL=${WA_WEBHOOK_URL:-https://your-bot-api.example.com/wa-receive?c=demo}
+      - FB_PAGE_ID=${FB_PAGE_ID:-your_facebook_page_id_here}
+      - FB_APP_SECRET=${FB_APP_SECRET:-your_fb_app_secret_here}
+      - WA_RECIPIENT_NUMBER=${WA_RECIPIENT_NUMBER:-+10000000000}
+      - WA_WEBHOOK_SECRET=${WA_WEBHOOK_SECRET:-your_wa_webhook_secret_here}
+      - REDIS_URL=redis://redis:6379
+    ports:
+      - "3000:3000"
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - botium-net
+    profiles:
+      - prod
+
+  botium-dev:
+    build:
+      context: .
+      target: development
+    container_name: botium-dev
+    environment:
+      - NODE_ENV=demo-stage-wa
+      - BOT_WEBHOOK_URL=${BOT_WEBHOOK_URL:-https://your-bot-api.example.com/facebook/staging/receive}
+      - WA_WEBHOOK_URL=${WA_WEBHOOK_URL:-https://your-bot-api.example.com/wa-receive?c=demo}
+      - FB_PAGE_ID=${FB_PAGE_ID:-your_facebook_page_id_here}
+      - FB_APP_SECRET=${FB_APP_SECRET:-your_fb_app_secret_here}
+      - WA_RECIPIENT_NUMBER=${WA_RECIPIENT_NUMBER:-+10000000000}
+      - WA_WEBHOOK_SECRET=${WA_WEBHOOK_SECRET:-your_wa_webhook_secret_here}
+      - REDIS_URL=redis://redis:6379
+      - DEBUG=botium:*
+    ports:
+      - "3000:3000"
+    depends_on:
+      redis:
+        condition: service_healthy
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - botium-net
+    profiles:
+      - dev
+
+volumes:
+  redis_data:
+    driver: local
+
+networks:
+  botium-net:
+    driver: bridge

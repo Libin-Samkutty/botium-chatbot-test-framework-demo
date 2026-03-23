@@ -1,0 +1,33 @@
+AppointmentErrorHandling
+
+#me
+Book me an appointment
+
+#bot
+I need more information. Which service do you need?
+
+#me
+Invalid option
+
+#bot
+I did not understand that. Please select from:
+- Cardiology
+- Neurology
+- Dermatology
+- General Practice
+
+#me
+Cardiology
+
+#bot
+Available dates: March 25, March 28, April 1
+Please select a date.
+
+#me
+March 25
+
+#bot
+Appointment confirmed.
+Date: March 25, 2026 at 2:00 PM
+Provider: Dr. Johnson
+Specialty: Cardiology

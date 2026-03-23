@@ -1,0 +1,11 @@
+PatientRegistrationWA
+
+#begin
+UPDATE_CUSTOM WAID|BOTIUM-WA-$random(10)
+
+#me
+Register me
+
+#include PCONVO_PATIENT_REGISTRATION_WA
+
+#include PCONVO_INSURANCE_VERIFICATION

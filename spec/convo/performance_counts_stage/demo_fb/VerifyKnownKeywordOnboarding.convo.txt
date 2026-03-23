@@ -1,0 +1,15 @@
+Verify_Known_Keyword_Onboarding_Demo_FB
+
+#begin
+UPDATE_CUSTOM FBUSER_ID|BOTIUM-FB-$random(10)
+
+#me
+Hello
+
+#include PCONVO_PATIENT_REGISTRATION_FB
+
+#bot
+1. Book Appointment
+2. Refill Prescription
+3. Medical Records
+4. Account Settings

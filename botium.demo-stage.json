@@ -1,0 +1,24 @@
+{
+  "botium": {
+    "Capabilities": {
+      "PROJECTNAME": "healthcare_assistant_fb",
+      "CONTAINERMODE": "fbwebhook",
+      "FBWEBHOOK_WEBHOOKURL": "${{BOT_WEBHOOK_URL}}",
+      "FBWEBHOOK_PAGEID": "${{FB_PAGE_ID}}",
+      "SIMPLEREST_INBOUND_REDISURL": "${{REDIS_URL}}",
+      "WAITFORBOTTIMEOUT": "120000",
+      "SCRIPTING_ENABLE_MEMORY": true,
+      "CUSTOMHOOK_ONBUILD": "./auth.js",
+      "LOGIC_HOOKS": [
+        {
+          "ref": "DUMP_FBUSERID",
+          "src": "const crypto = require('crypto'); botiumContainer.on('MESSAGE_SENT', async (msg) => { if (!botiumContainer.conversationState.FB_USER_ID) { botiumContainer.conversationState.FB_USER_ID = crypto.randomUUID(); console.log('[TEST] User ID:', botiumContainer.conversationState.FB_USER_ID); } });"
+        },
+        {
+          "ref": "DELAY_SEND",
+          "src": "botiumContainer.on('MESSAGE_SEND', (msg) => { return new Promise(resolve => setTimeout(resolve, 1000)); });"
+        }
+      ]
+    }
+  }
+}

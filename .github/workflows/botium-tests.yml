@@ -1,0 +1,100 @@
+name: Botium Integration Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  # schedule:
+  #   # Run health checks every 4 hours
+  #   - cron: '0 */4 * * *'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      redis:
+        image: redis:7-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Verify environment
+        run: |
+          node --version
+          npm --version
+          redis-cli ping || true
+
+      - name: Run staging health checks
+        env:
+          BOT_WEBHOOK_URL: ${{ secrets.BOT_WEBHOOK_URL_STAGING }}
+          WA_WEBHOOK_URL: ${{ secrets.WA_WEBHOOK_URL_STAGING }}
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          FB_APP_SECRET: ${{ secrets.FB_APP_SECRET }}
+          WA_RECIPIENT_NUMBER: ${{ secrets.WA_RECIPIENT_NUMBER }}
+          WA_WEBHOOK_SECRET: ${{ secrets.WA_WEBHOOK_SECRET }}
+          REDIS_URL: redis://localhost:6379
+        run: |
+          NODE_ENV=demo-stage npx botium-cli run mochawesome --convos ./spec/convo/health_check/demo-stage
+          NODE_ENV=demo-stage-wa npx botium-cli run mochawesome --convos ./spec/convo/health_check/demo-stage-wa
+
+      - name: Run smoke tests
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          BOT_WEBHOOK_URL: ${{ secrets.BOT_WEBHOOK_URL_STAGING }}
+          WA_WEBHOOK_URL: ${{ secrets.WA_WEBHOOK_URL_STAGING }}
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          FB_APP_SECRET: ${{ secrets.FB_APP_SECRET }}
+          WA_RECIPIENT_NUMBER: ${{ secrets.WA_RECIPIENT_NUMBER }}
+          WA_WEBHOOK_SECRET: ${{ secrets.WA_WEBHOOK_SECRET }}
+          REDIS_URL: redis://localhost:6379
+        run: |
+          NODE_ENV=demo-stage npx botium-cli run mochawesome --convos ./spec/convo/smoke/demo
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-reports
+          path: |
+            demo-stage*/mochawesome.html
+            demo-stage*/mochawesome.json
+
+      - name: Comment PR with test results
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const results = [];
+            ['demo-stage', 'demo-stage-wa'].forEach(env => {
+              try {
+                const report = JSON.parse(fs.readFileSync(`${env}/mochawesome.json`, 'utf8'));
+                results.push(`- **${env}**: ${report.stats.passes}/${report.stats.testsRegistered} passed (${report.stats.passPercent.toFixed(2)}%)`);
+              } catch (e) {}
+            });
+            if (results.length > 0) {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: '## Botium Test Results\n' + results.join('\n')
+              });
+            }

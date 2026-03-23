@@ -1,0 +1,33 @@
+PCONVO_PATIENT_REGISTRATION_WA
+
+#bot
+HealthCare Portal Registration
+
+#bot
+Enter your phone number for verification.
+
+#me
++1-555-0123
+
+#bot
+Phone verified. 
+
+#bot
+Patient name?
+
+#me
+Sarah Johnson
+
+#bot
+Date of birth? (MM/DD/YYYY)
+
+#me
+05/20/1975
+
+#bot
+Registration complete.
+Patient ID: P-789012345
+Access medical records via:
+1. View appointments
+2. Check lab results
+3. Request prescriptions

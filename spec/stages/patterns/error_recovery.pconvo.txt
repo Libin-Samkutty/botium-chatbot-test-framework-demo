@@ -1,0 +1,13 @@
+PCONVO_ERROR_RECOVERY
+
+#me
+help
+
+#bot
+I did not understand that request. Available services: appointment booking, prescription refills, medical records access.
+
+#me
+appointment
+
+#bot
+Which specialty would you like to schedule with?

@@ -1,0 +1,27 @@
+PCONVO_PATIENT_REGISTRATION_FB
+
+#bot
+Welcome to HealthCare Portal. Let's set up your account.
+
+#bot
+This will take a few minutes. We need basic information.
+
+#me
+Ready to proceed
+
+#bot
+What is your full name?
+
+#me
+John Smith
+
+#bot
+Date of birth?
+
+#me
+January 15, 1980
+
+#bot
+Information saved successfully. 
+Your patient ID: P-456789012
+You can now schedule appointments and access medical records.

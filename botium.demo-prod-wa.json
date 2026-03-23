@@ -1,0 +1,14 @@
+{
+  "botium": {
+    "Capabilities": {
+      "PROJECTNAME": "healthcare_assistant_wa_prod",
+      "CONTAINERMODE": "whatsapp",
+      "WAITFORBOTTIMEOUT": "60000",
+      "SIMPLEREST_INBOUND_REDISURL": "${{REDIS_URL}}",
+      "WHATSAPP_WEBHOOKURL": "${{WA_WEBHOOK_URL}}",
+      "WHATSAPP_RECIPIENT_NUMBER": "${{WA_RECIPIENT_NUMBER}}",
+      "SCRIPTING_ENABLE_MEMORY": true,
+      "CUSTOMHOOK_ONBUILD": "./auth.js"
+    }
+  }
+}

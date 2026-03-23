@@ -1,0 +1,7 @@
+# Python dependencies for the CI/reporting script (python_send.py)
+# Install with: pip install -r requirements.txt
+
+boto3==1.20.24
+botocore==1.23.24
+requests==2.22.0
+python-dateutil==2.7.3

@@ -1,0 +1,34 @@
+PrescriptionRefillFlow
+
+#begin
+UPDATE_CUSTOM FBUSER_ID|BOTIUM-FB-$random(10)
+
+#me
+I need a prescription refill
+
+#bot
+Retrieving your records...
+
+#bot
+Current prescriptions:
+1. Lisinopril 10mg - 3 refills remaining
+2. Atorvastatin 20mg - No refills
+3. Metformin 500mg - 5 refills remaining
+
+#me
+I need Lisinopril refilled
+
+#bot
+Pharmacy on file: CVS Main Street
+Quantity: 30 tablets
+Estimated ready: 24 hours
+
+Proceed with refill?
+
+#me
+Yes, proceed
+
+#bot
+Refill submitted.
+Confirmation: RX-2026-789456
+You will receive notification when ready for pickup.

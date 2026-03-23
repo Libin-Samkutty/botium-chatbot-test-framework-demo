@@ -1,0 +1,21 @@
+PCONVO_FAQ_FLOW
+
+#me
+Do you have information about appointments?
+
+#bot
+Frequently asked questions:
+
+1. How do I book an appointment?
+2. Can I reschedule my appointment?
+3. What is your cancellation policy?
+4. How do I access my medical records?
+5. What insurance plans do you accept?
+
+Which question would you like answered?
+
+#me
+1
+
+#bot
+To book an appointment: select your preferred specialty, choose an available date and time, and confirm your appointment. You will receive a confirmation via email and SMS.

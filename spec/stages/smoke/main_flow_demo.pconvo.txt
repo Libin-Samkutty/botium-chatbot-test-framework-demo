@@ -1,0 +1,23 @@
+PCONVO_HEALTHCAREMENU_DEMO_ENG
+
+#bot
+Healthcare options available:
+
+#bot
+1. Book Appointment
+2. Refill Prescription
+3. Medical Records
+4. Billing
+
+#me
+1
+
+#bot
+Specialty selection:
+- Cardiology
+- Neurology
+- Dermatology
+- General Practice
+
+#bot
+Which specialty would you like to schedule with?

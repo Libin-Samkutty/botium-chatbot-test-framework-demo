@@ -1,0 +1,11 @@
+PatientRegistrationFlow
+
+#begin
+UPDATE_CUSTOM FBUSER_ID|BOTIUM-FB-$random(10)
+
+#me
+I need to register
+
+#include PCONVO_PATIENT_REGISTRATION_FB
+
+#include PCONVO_MEDICAL_HISTORY_FORM

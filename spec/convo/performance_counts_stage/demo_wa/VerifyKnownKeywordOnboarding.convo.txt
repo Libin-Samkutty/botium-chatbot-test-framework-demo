@@ -1,0 +1,15 @@
+Verify_Known_Keyword_Onboarding_Demo_WA
+
+#begin
+UPDATE_CUSTOM WHATSAPP_RECIPIENTID|BOTIUM-WA-$random(10)
+
+#me
+Hello
+
+#include PCONVO_PATIENT_REGISTRATION_WA
+
+#bot
+1. Book Appointment
+2. Refill Prescription
+3. Medical Records
+4. Account Settings

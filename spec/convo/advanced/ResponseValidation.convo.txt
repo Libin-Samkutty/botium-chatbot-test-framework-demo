@@ -1,0 +1,24 @@
+MedicalRecordsAccess
+
+#me
+Show my medical history
+
+#bot
+Medical Records for Patient ID: P-12345678
+Last Updated: March 20, 2026
+
+Recent Visits:
+- March 15: Cardiology checkup
+- March 8: Blood work lab
+- February 28: Follow-up appointment
+
+#me
+What was the result of my blood work?
+
+#bot
+Blood Work Results (March 8, 2026):
+Cholesterol: 185 mg/dL (Normal)
+Blood Pressure: 118/76 (Normal)
+Glucose: 95 mg/dL (Normal)
+
+Full results available in your patient portal.
